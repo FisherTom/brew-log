@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 export const getAllBeers = (page = 1) => {
-  return api.get(`beers?per_page=10&page=${page}`).then((res) => {
+  return api.get(`beers?per_page=20&page=${page}`).then((res) => {
     console.log(res.data);
     return res.data;
   });
