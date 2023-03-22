@@ -4,78 +4,55 @@ import IngredientChart from "./IngredientChart";
 
 function BrewSheet({ beer }) {
   return (
-    <div className="flex flex-col gap-5 bg-white p-6 m-10 w-full h-fit border-2 border-black">
+    <div className="flex flex-col gap-5 bg-white p-6 m-10 w-full max-w-6xl h-fit shadow-2xl">
       <div className="flex items-end gap-5" id="sheet-title">
-        <h1 className="text-4xl font-bebas">{beer.name}</h1>
+        <h1 className="text-6xl font-bebas">{beer.name}</h1>
         <h3 className="text-2xl font-bebas">{beer.abv + " % abv"}</h3>
       </div>
-      <h2 className="font-bebas text-2xl">Ingredients</h2>
+      <h2 className="font-bebas text-3xl">Ingredients</h2>
       <div className="flex flex-col gap-2" id="ingredients">
         <div className="flex gap-2">
           <div className="flex-grow border-2 border-black">
-            <h3 className="bg-slate-300 p-3">Malts:</h3>
+            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+              Malts
+            </h3>
             <div className="flex items-center flex-wrap justify-center">
-              <div className="w-[200px]  m-10">
+              <div className="  m-10">
                 <IngredientChart
                   ingredients={beer.ingredients.malt}
                   colors={maltColors}
                 />
               </div>
-
-              <ul className="m-3 ">
-                {beer.ingredients.malt.map((malt, i) => {
-                  return (
-                    <li className="flex align-middle m-2 gap-2">
-                      <div
-                        className={`w-6 h-6 rounded`}
-                        style={{ backgroundColor: `${maltColors[i]}` }}
-                      ></div>
-                      <p>{`${malt.name} - ${malt.amount.value} ${malt.amount.unit}`}</p>
-                    </li>
-                  );
-                })}
-              </ul>
             </div>
           </div>
           <div className="flex-grow border-2 border-black  ">
-            <h3 className="bg-slate-300 p-3 ">Hops:</h3>
+            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3 ">
+              Hops
+            </h3>
             <div className="flex items-center flex-wrap justify-center">
-              <div className="w-[200px] m-10">
+              <div className=" m-10">
                 <IngredientChart
                   ingredients={beer.ingredients.hops}
                   colors={hopColors}
                 />
               </div>
-              <ul className="m-3">
-                {[...new Set(beer.ingredients.hops.map((hop) => hop.name))].map(
-                  (name, i) => (
-                    <li className="flex align-middle m-2 gap-2">
-                      <div
-                        className={`w-6 h-6 rounded`}
-                        style={{ backgroundColor: `${hopColors[i]}` }}
-                      ></div>
-                      <a
-                        href={`https://www.themaltmiller.co.uk/?s=${name}&search_id=1&post_type=product`}
-                      >
-                        <p>{`${name}`}</p>
-                      </a>
-                    </li>
-                  )
-                )}
-              </ul>
             </div>
           </div>
         </div>
         <div className="flex gap-2 border-2 border-black">
-          <h3 className="bg-slate-300 p-3">Yeast: </h3>
+          <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+            Yeast
+          </h3>
           <p className="p-3">{beer.ingredients.yeast}</p>
         </div>
       </div>
-      <h2 className="font-bebas text-2xl">Process</h2>
+      <h2 className="font-bebas text-3xl">Process</h2>
       <div className="flex flex-col gap-2" id="process">
         <div className="flex gap-2">
           <div className="flex-grow border-2 border-black">
-            <h3 className="bg-slate-300 p-3">Mash</h3>
+            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+              Mash
+            </h3>
             <ol className="p-3">
               {beer.method.mash_temp.map((step) => {
                 return (
@@ -85,7 +62,9 @@ function BrewSheet({ beer }) {
             </ol>
           </div>
           <div className="flex-grow border-2 border-black">
-            <h3 className="bg-slate-300 p-3">boil</h3>
+            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+              boil
+            </h3>
             <h4 className="p-3">
               Boil Volume:
               {` ${beer.boil_volume.value}${beer.boil_volume.unit}`}
@@ -100,7 +79,9 @@ function BrewSheet({ beer }) {
           </div>
         </div>
         <div className="flex-grow border-2 border-black">
-          <h3 className="bg-slate-300 p-3">Fermentation</h3>
+          <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+            Fermentation
+          </h3>
           <h4 className="p-3">{`${beer.method.fermentation.temp.value} ${beer.method.fermentation.temp.unit}`}</h4>
         </div>
       </div>

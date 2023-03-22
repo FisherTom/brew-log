@@ -5,41 +5,43 @@ import React, { useEffect, useState } from "react";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function IngredientChart({ ingredients, colors }) {
-  const [hopNames, setHopNames] = useState([]);
+  const [summedIngredients, setSummedIngredients] = useState([]);
+  const [IngredientNames, setIngredientNames] = useState([]);
   const [amounts, setAmounts] = useState([]);
 
   useEffect(() => {
-    const summedArray = ingredients.reduce((accumulator, hop) => {
-      const existingHop = accumulator.find(
-        (accHop) => accHop.name === hop.name
+    const summedArray = ingredients.reduce((accumulator, ingredient) => {
+      const existingIngredient = accumulator.find(
+        (accIngredient) => accIngredient.name === ingredient.name
       );
-      if (existingHop) {
-        existingHop.amount.value += hop.amount.value;
+      if (existingIngredient) {
+        existingIngredient.amount.value += ingredient.amount.value;
       } else {
         accumulator.push({
-          name: hop.name,
+          name: ingredient.name,
           amount: {
-            value: hop.amount.value,
-            unit: hop.amount.unit,
+            value: ingredient.amount.value,
+            unit: ingredient.amount.unit,
           },
         });
       }
       return accumulator;
     }, []);
-    setHopNames(
-      summedArray.map((hop) => {
-        return hop.name;
+    setSummedIngredients(summedArray);
+    setIngredientNames(
+      summedArray.map((ingredient) => {
+        return ingredient.name;
       })
     );
     setAmounts(
-      summedArray.map((hop) => {
-        return hop.amount.value;
+      summedArray.map((ingredient) => {
+        return ingredient.amount.value;
       })
     );
   }, [ingredients]);
 
   const data = {
-    labels: [...hopNames],
+    labels: [...IngredientNames],
     datasets: [
       {
         label: "Grams",
@@ -70,7 +72,27 @@ function IngredientChart({ ingredients, colors }) {
     },
   };
 
-  return <Doughnut data={data} options={options}></Doughnut>;
+  return (
+    <div className="flex flex-wrap">
+      <div className="w-[180px]">
+        <Doughnut data={data} options={options}></Doughnut>
+      </div>
+
+      <ul className="m-3 ">
+        {summedIngredients.map((ingredient, i) => {
+          return (
+            <li className="flex align-middle m-2 gap-2">
+              <div
+                className={`w-6 h-6 rounded-[50%] shrink-0`}
+                style={{ backgroundColor: `${colors[i]}` }}
+              ></div>
+              <p>{`${ingredient.name} - ${ingredient.amount.value} ${ingredient.amount.unit}`}</p>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 }
 
 export default IngredientChart;
