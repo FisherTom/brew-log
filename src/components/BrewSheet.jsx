@@ -1,5 +1,6 @@
 import React from "react";
-import HopChart from "./HopChart";
+import { hopColors, maltColors } from "../hopColors";
+import IngredientChart from "./IngredientChart";
 
 function BrewSheet({ beer }) {
   return (
@@ -13,31 +14,55 @@ function BrewSheet({ beer }) {
         <div className="flex gap-2">
           <div className="flex-grow border-2 border-black">
             <h3 className="bg-slate-300 p-3">Malts:</h3>
-            <ul className="p-3">
-              {beer.ingredients.malt.map((malt) => {
-                return <li key={malt.name}>{malt.name}</li>;
-              })}
-            </ul>
+            <div className="flex items-center flex-wrap justify-center">
+              <div className="w-[200px]  m-10">
+                <IngredientChart
+                  ingredients={beer.ingredients.malt}
+                  colors={maltColors}
+                />
+              </div>
+
+              <ul className="m-3 ">
+                {beer.ingredients.malt.map((malt, i) => {
+                  return (
+                    <li className="flex align-middle m-2 gap-2">
+                      <div
+                        className={`w-6 h-6 rounded`}
+                        style={{ backgroundColor: `${maltColors[i]}` }}
+                      ></div>
+                      <p>{`${malt.name} - ${malt.amount.value} ${malt.amount.unit}`}</p>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
-          <div className="flex-grow border-2 border-black flex flex-col ">
-            <h3 className="bg-slate-300 p-3">Hops:</h3>
-            <div className="flex justify-between">
-              <ul className="p-3">
+          <div className="flex-grow border-2 border-black  ">
+            <h3 className="bg-slate-300 p-3 ">Hops:</h3>
+            <div className="flex items-center flex-wrap justify-center">
+              <div className="w-[200px] m-10">
+                <IngredientChart
+                  ingredients={beer.ingredients.hops}
+                  colors={hopColors}
+                />
+              </div>
+              <ul className="m-3">
                 {[...new Set(beer.ingredients.hops.map((hop) => hop.name))].map(
-                  (name) => (
-                    <li>
+                  (name, i) => (
+                    <li className="flex align-middle m-2 gap-2">
+                      <div
+                        className={`w-6 h-6 rounded`}
+                        style={{ backgroundColor: `${hopColors[i]}` }}
+                      ></div>
                       <a
                         href={`https://www.themaltmiller.co.uk/?s=${name}&search_id=1&post_type=product`}
                       >
-                        {name}
+                        <p>{`${name}`}</p>
                       </a>
                     </li>
                   )
                 )}
               </ul>
-              <div className="w-60 self-center m-5">
-                <HopChart hops={beer.ingredients.hops} />
-              </div>
             </div>
           </div>
         </div>

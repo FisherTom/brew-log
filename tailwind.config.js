@@ -11,6 +11,7 @@ module.exports = {
       },
       fontFamily: {
         bebas: ["Bebas Neue"],
+        rubic: ["Rubik"],
       },
     },
   },

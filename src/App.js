@@ -15,11 +15,15 @@ function App() {
   }, []);
 
   return (
-    <div className="flex bg-gray-800">
+    <div className="flex bg-gray-300">
       <Sidebar>
         {beerList.map((beer) => {
           return (
-            <li key={beer.id} onClick={() => setSelectedBeer(beer)}>
+            <li
+              className=" m-1 p-1 rounded text-xl cursor-pointer border-2 border-gray-400 hover:border-black font-rubic text-sm"
+              key={beer.id}
+              onClick={() => setSelectedBeer(beer)}
+            >
               {beer.name}
             </li>
           );
