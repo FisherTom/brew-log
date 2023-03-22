@@ -25,12 +25,18 @@ function BrewSheet({ beer }) {
               <ul className="p-3">
                 {[...new Set(beer.ingredients.hops.map((hop) => hop.name))].map(
                   (name) => (
-                    <li>{name}</li>
+                    <li>
+                      <a
+                        href={`https://www.themaltmiller.co.uk/?s=${name}&search_id=1&post_type=product`}
+                      >
+                        {name}
+                      </a>
+                    </li>
                   )
                 )}
               </ul>
               <div className="w-60 self-center m-5">
-                <HopChart />
+                <HopChart hops={beer.ingredients.hops} />
               </div>
             </div>
           </div>
