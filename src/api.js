@@ -1,12 +1,12 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://api.punkapi.com/v2",
+  baseURL: "https://thankful-puce-pike.cyclic.app",
 });
 
 export const getAllBeers = (page = 1) => {
-  return api.get(`beers?per_page=20&page=${page}`).then((res) => {
-    console.log(res.data);
-    return res.data;
+  return api.get(`/recipes`).then((res) => {
+    console.log(res.data.recipes);
+    return res.data.recipes;
   });
 };

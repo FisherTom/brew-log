@@ -73,7 +73,7 @@ function IngredientChart({ ingredients, colors }) {
   };
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap justify-center">
       <div className="w-[180px]">
         <Doughnut data={data} options={options}></Doughnut>
       </div>
