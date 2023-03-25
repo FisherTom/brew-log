@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { getAllHops, getAllMalts } from "../api";
+import ComboBox from "./ComboBox";
 
 function CreateSheet() {
+  const [hopList, setHopList] = useState([]);
+  const [maltList, setMaltList] = useState([]);
+
+  useEffect(() => {
+    getAllHops().then((hops) => setHopList(hops));
+    getAllMalts().then((malts) => setMaltList(malts));
+  }, []);
+
   return (
     <div className="flex flex-col gap-5 bg-white p-6 m-10 w-full max-w-6xl h-fit shadow-2xl">
       <div>
@@ -18,11 +28,13 @@ function CreateSheet() {
             <h3 className="bg-black  text-white font-rubic font-bold text-xl p-3">
               Malts
             </h3>
+            <ComboBox items={maltList.map((malt) => malt.name)} />
           </div>
           <div className="flex-grow border-2 border-black rounded  ">
             <h3 className="bg-black text-white font-rubic font-bold text-xl p-3 ">
               Hops
             </h3>
+            <ComboBox items={hopList.map((hop) => hop.name)} />
           </div>
         </div>
         <div className="flex gap-2 border-2 border-black rounded">

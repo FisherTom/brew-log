@@ -33,7 +33,7 @@ function Sidebar({ setSelectedBeer }) {
         )}
       </ul>
       <div>
-        <Link to={location.pathname === "/create" ? "/brew-sheets" : "/create"}>
+        <Link to={location.pathname === "/create" ? "/" : "/create"}>
           <h2 className=" bg-pink-400  text-white p-5 rounded-2xl text-center font-bebas text-2xl shadow-xl">
             {location.pathname === "/create" ? "Brew Sheets" : "Create Recipe"}
           </h2>

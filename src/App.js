@@ -14,7 +14,7 @@ function App() {
       <div className="flex-grow h-screen overflow-y-auto flex justify-center">
         <Routes>
           <Route
-            path="brew-sheets"
+            path="/"
             element={selectedBeer && <BrewSheet beer={selectedBeer} />}
           />
           <Route path="create" element={<CreateSheet />} />

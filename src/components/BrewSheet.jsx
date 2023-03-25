@@ -7,7 +7,9 @@ function BrewSheet({ beer }) {
     <div className="flex flex-col gap-5 bg-white p-6 m-10 w-full max-w-6xl h-fit shadow-2xl">
       <div>
         <div className="flex items-end gap-5 justify-between" id="sheet-title">
-          <h1 className="text-6xl font-bebas">{beer.name}</h1>
+          <h1 className="text-6xl font-bebas drop-shadow-[2px_2px_3px_rgba(160,160,160)]">
+            {beer.name}
+          </h1>
           <h3 className="text-3xl font-bebas">{beer.abv + " % abv"}</h3>
         </div>
         <h3 className="text-3xl font-bebas">{beer.style}</h3>
