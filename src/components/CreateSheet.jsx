@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAllHops, getAllMalts } from "../api";
+import { getAllHops, getAllMalts, postBeer } from "../api";
 import ComboBox from "./ComboBox";
 
 function CreateSheet() {
@@ -22,12 +22,30 @@ function CreateSheet() {
   const [mashTemp, setMashTemp] = useState();
   const [mashTime, setMashTime] = useState();
 
-  // name,abv,style,description,malts, hops,yeast,mash,fermTemp,og,fg,notes
-
   useEffect(() => {
     getAllHops().then((hops) => setHopList(hops));
     getAllMalts().then((malts) => setMaltList(malts));
   }, []);
+
+  // name,abv,style,description,malts, hops,yeast,mash,fermTemp,og,fg,notes
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    postBeer({
+      name,
+      abv,
+      style,
+      description,
+      selectedMalts,
+      selectedHops,
+      yeast,
+      mash,
+      fermTemp,
+      og,
+      fg,
+      notes,
+    });
+  }
 
   function handleAddMashStep() {
     setMash((currentMash) => {
@@ -36,10 +54,31 @@ function CreateSheet() {
     setMashTemp("");
     setMashTime("");
   }
+
+  function handleHopChange(uuid, field, value) {
+    const updatedHopsData = selectedHops.map((hop) => {
+      if (hop.uuid === uuid) {
+        return { ...hop, [field]: value };
+      }
+      return hop;
+    });
+    setSelectedHops(updatedHopsData);
+  }
+
+  function handleMaltChange(uuid, field, value) {
+    const updatedMaltsData = selectedMalts.map((malt) => {
+      if (malt.uuid === uuid) {
+        return { ...malt, [field]: value };
+      }
+      return malt;
+    });
+    setSelectedMalts(updatedMaltsData);
+  }
+
   return (
-    <form className="flex flex-col gap-5 bg-white p-6 m-10 w-full max-w-6xl h-fit shadow-2xl">
+    <form className="flex flex-col w-full max-w-6xl gap-5 p-6 m-10 bg-white shadow-2xl h-fit">
       <div>
-        <div className="flex items-end gap-5 justify-between" id="sheet-title">
+        <div className="flex items-end justify-between gap-5" id="sheet-title">
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -59,24 +98,29 @@ function CreateSheet() {
           className="text-3xl font-bebas"
           placeholder="Style"
         ></input>
-        <div className="flex-grow border-t-2 border-black flex">
+        <div className="flex flex-grow border-t-2 border-black">
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="p-2 min-w-0 w-full h-full overflow-y-auto resize-none border-none outline-none"
+            className="w-full h-full min-w-0 p-2 overflow-y-auto border-none outline-none resize-none"
             placeholder="Add Description"
           ></textarea>
-          <button className="w-40 bg-green-500 m-2 rounded-lg">
+          <button
+            className="w-40 m-2 bg-green-500 rounded-lg"
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
+          >
             Submit recipe
           </button>
         </div>
       </div>
 
-      <h2 className="font-bebas text-3xl">Ingredients</h2>
+      <h2 className="text-3xl font-bebas">Ingredients</h2>
       <div className="flex flex-col gap-2" id="ingredients">
         <div className="flex gap-2">
           <div className="flex-grow border-2 border-black rounded">
-            <h3 className="bg-black  text-white font-rubic font-bold text-xl p-3">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Malts
             </h3>
             <div className="p-2">
@@ -86,7 +130,16 @@ function CreateSheet() {
                     <li key={malt.uuid} className="flex justify-between">
                       <p>{malt.name}</p>
                       <div className="flex items-center">
-                        <input className="w-10 border-2 rounded"></input>
+                        <input
+                          className="w-10 border-2 rounded"
+                          onChange={(e) => {
+                            handleMaltChange(
+                              malt.uuid,
+                              "weight",
+                              e.target.value
+                            );
+                          }}
+                        ></input>
                         <p>Kg</p>
                       </div>
                     </li>
@@ -100,23 +153,37 @@ function CreateSheet() {
               />
             </div>
           </div>
-          <div className="flex-grow border-2 border-black rounded  ">
-            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3 ">
+          <div className="flex-grow border-2 border-black rounded ">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic ">
               Hops
             </h3>
             <div className="p-2">
               <ol className="flex flex-col">
-                {selectedHops.map((hop) => {
+                {selectedHops.map((hop, index) => {
                   return (
                     <li key={hop.uuid} className="flex flex-col">
-                      <div className="flex justify-between flex-wrap">
+                      <div className="flex flex-wrap justify-between">
                         <p className="w-[30%]">{hop.name}</p>
                         <div className="flex items-center ">
-                          <input className="w-10 border-2 rounded"></input>
+                          <input
+                            className="w-10 border-2 rounded"
+                            onChange={(e) => {
+                              handleHopChange(
+                                hop.uuid,
+                                "weight",
+                                e.target.value
+                              );
+                            }}
+                          ></input>
                           <p>g</p>
                         </div>
                         <div className="flex items-center">
-                          <input className="w-10 border-2 rounded"></input>
+                          <input
+                            className="w-10 border-2 rounded"
+                            onChange={(e) => {
+                              handleHopChange(hop.uuid, "time", e.target.value);
+                            }}
+                          ></input>
                           <p>mins</p>
                         </div>
                       </div>
@@ -133,7 +200,7 @@ function CreateSheet() {
           </div>
         </div>
         <div className="flex gap-2 border-2 border-black rounded">
-          <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+          <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
             Yeast
           </h3>
           <input
@@ -144,18 +211,18 @@ function CreateSheet() {
           ></input>
         </div>
       </div>
-      <h2 className="font-bebas text-3xl">Process</h2>
+      <h2 className="text-3xl font-bebas">Process</h2>
       <div className="flex flex-col gap-2" id="process">
         <div className="flex gap-2">
           <div className="flex-grow border-2 border-black rounded">
-            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Mash
             </h3>
-            <div className="p-3 flex flex-col gap-3">
+            <div className="flex flex-col gap-3 p-3">
               <ol>
                 {mash.map((item) => {
                   return (
-                    <li className="flex gap-5 justify-center">
+                    <li className="flex justify-center gap-5">
                       <p>{item.mashTemp + " deg C"}</p>
                       <p>{item.mashTime + " Mins"}</p>
                     </li>
@@ -183,13 +250,13 @@ function CreateSheet() {
                 </div>
                 <div
                   onClick={() => handleAddMashStep()}
-                  className="w-5 h-5 rounded-xl bg-green-400"
+                  className="w-5 h-5 bg-green-400 rounded-xl"
                 ></div>
               </div>
             </div>
           </div>
           <div className="flex-grow border-2 border-black rounded ">
-            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               boil
             </h3>
             <div className="flex items-center ">
@@ -197,7 +264,7 @@ function CreateSheet() {
               <input
                 value={boilVolume}
                 onChange={(e) => setBoilVolume(e.target.value)}
-                className="w-[20%] m-2 border-b-2 border-black focus:outline-none"
+                className="w-16 m-2 border-b-2 border-black focus:outline-none"
                 placeholder="Volume"
               ></input>{" "}
               <p>Litres</p>
@@ -207,7 +274,7 @@ function CreateSheet() {
               <input
                 value={batchSize}
                 onChange={(e) => setBatchSize(e.target.value)}
-                className="w-[20%] m-2 border-b-2 border-black focus:outline-none"
+                className="w-16 m-2 border-b-2 border-black focus:outline-none"
                 placeholder="Volume"
               ></input>
               <p>Litres</p>
@@ -217,7 +284,7 @@ function CreateSheet() {
 
         <div className="flex gap-2">
           <div className="flex-grow border-2 border-black rounded">
-            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Fermentation temp
             </h3>
             <input
@@ -229,7 +296,7 @@ function CreateSheet() {
           </div>
 
           <div className="flex-grow border-2 border-black rounded">
-            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Original Gravity
             </h3>
             <div className="flex flex-col items-center">
@@ -249,7 +316,7 @@ function CreateSheet() {
           </div>
 
           <div className="flex-grow border-2 border-black rounded">
-            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Final Gravity
             </h3>
             <div className="flex flex-col items-center">
@@ -270,18 +337,18 @@ function CreateSheet() {
         </div>
 
         <div className="flex gap-2 border-2 border-black rounded">
-          <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+          <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
             Notes
           </h3>
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            className="p-2 min-w-0 w-full h-full overflow-y-auto resize-none border-none outline-none"
+            className="w-full h-full min-w-0 p-2 overflow-y-auto border-none outline-none resize-none"
             placeholder="Add Notes"
           ></textarea>
         </div>
 
-        <div className="h-2 flex justify-between text-sm py-2 border-black border-t-2"></div>
+        <div className="flex justify-between h-2 py-2 text-sm border-t-2 border-black"></div>
       </div>
     </form>
   );

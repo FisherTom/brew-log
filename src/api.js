@@ -21,3 +21,33 @@ export const getAllMalts = () => {
     return res.data.malts;
   });
 };
+
+export const postBeer = ({
+  name,
+  abv,
+  style,
+  description,
+  selectedMalts,
+  selectedHops,
+  yeast,
+  mash,
+  fermTemp,
+  og,
+  fg,
+  notes,
+}) => {
+  console.log(
+    name,
+    abv,
+    style,
+    description,
+    selectedMalts,
+    selectedHops,
+    yeast,
+    mash,
+    fermTemp,
+    og,
+    fg,
+    notes
+  );
+};

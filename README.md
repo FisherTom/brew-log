@@ -4,9 +4,11 @@ Web App for homebrewers to record, share and view beer recipies and brew logs.
 
 ## todo
 
-[x] contain beer list in side bar
-[x] contain ingredients list in hop chart component
-[ ] create component for brew sheet elements
+[ ] form validation
+[ ] list id errors
+[ ] form labels
+[ ] data formatting
+[ ] DB post
 
 ## Cloning this repo
 
