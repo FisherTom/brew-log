@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
 
 function ComboBox({ items, type, setSelectedItems }) {
   const [inputText, setInputText] = useState("");
@@ -23,9 +24,10 @@ function ComboBox({ items, type, setSelectedItems }) {
     }
   }, [inputText, items]);
 
-  function handleAddToSelected(item) {
+  function handleAddToSelected(item, e) {
+    e.preventDefault();
     setSelectedItems((currentItems) => {
-      return [...currentItems, item];
+      return [...currentItems, { ...item, uuid: uuid() }]; //!give item UUID
     });
     setInputText("");
   }
@@ -55,7 +57,7 @@ function ComboBox({ items, type, setSelectedItems }) {
                 <div className="w-5 h-5 rounded-xl bg-green-300 justify-center items-center flex">
                   <button
                     className=" text-green-900 font-bold"
-                    onClick={() => handleAddToSelected(item)}
+                    onClick={(e) => handleAddToSelected(item, e)}
                   >
                     +
                   </button>

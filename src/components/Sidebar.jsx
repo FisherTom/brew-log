@@ -6,7 +6,6 @@ import { Link, useLocation } from "react-router-dom";
 function Sidebar({ setSelectedBeer }) {
   const [beerList, setBeerList] = useState([]);
   const location = useLocation();
-  console.log(location.pathname);
 
   useEffect(() => {
     getAllBeers().then((beers) => {
@@ -23,7 +22,7 @@ function Sidebar({ setSelectedBeer }) {
             return (
               <li
                 className=" m-1 p-2 rounded cursor-pointer font-rubic text-sm hover:bg-black hover:text-white"
-                key={beer.id}
+                key={beer._id}
                 onClick={() => setSelectedBeer(beer)}
               >
                 {beer.name}
