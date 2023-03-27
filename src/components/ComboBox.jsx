@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function ComboBox({ items }) {
+function ComboBox({ items, type, setSelectedItems }) {
   const [inputText, setInputText] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -10,7 +10,9 @@ function ComboBox({ items }) {
       setFilteredItems(
         items
           .filter((item) =>
-            item.toLocaleLowerCase().includes(inputText.toLocaleLowerCase())
+            item.name
+              .toLocaleLowerCase()
+              .includes(inputText.toLocaleLowerCase())
           )
           .slice(0, 5)
       );
@@ -21,10 +23,17 @@ function ComboBox({ items }) {
     }
   }, [inputText, items]);
 
+  function handleAddToSelected(item) {
+    setSelectedItems((currentItems) => {
+      return [...currentItems, item];
+    });
+    setInputText("");
+  }
+
   return (
-    <div className="p-2 flex flex-col gap-2">
+    <div className="m-2 flex flex-col gap-2">
       <input
-        placeholder={`Add Hop`}
+        placeholder={`Add ${type}`}
         className="border-b-2 border-black focus:outline-none "
         onChange={(event) => setInputText(event.target.value)}
         value={inputText}
@@ -38,10 +47,18 @@ function ComboBox({ items }) {
         <ol className={`bg-gray-200 rounded h-full`}>
           {filteredItems.map((item) => {
             return (
-              <li className="flex items-center p-1 justify-between w-full">
-                {item}{" "}
+              <li
+                key={item._id}
+                className="flex items-center p-1 justify-between w-full"
+              >
+                {item.name}{" "}
                 <div className="w-5 h-5 rounded-xl bg-green-300 justify-center items-center flex">
-                  <p className=" text-green-900 font-bold">+</p>
+                  <button
+                    className=" text-green-900 font-bold"
+                    onClick={() => handleAddToSelected(item)}
+                  >
+                    +
+                  </button>
                 </div>
               </li>
             );

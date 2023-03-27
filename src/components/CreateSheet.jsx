@@ -5,6 +5,8 @@ import ComboBox from "./ComboBox";
 function CreateSheet() {
   const [hopList, setHopList] = useState([]);
   const [maltList, setMaltList] = useState([]);
+  const [selectedHops, setSelectedHops] = useState([]);
+  const [selectedMalts, setSelectedMalts] = useState([]);
 
   useEffect(() => {
     getAllHops().then((hops) => setHopList(hops));
@@ -12,15 +14,32 @@ function CreateSheet() {
   }, []);
 
   return (
+    // <div className="flex flex-col gap-5 bg-white p-6 m-10 w-full max-w-6xl h-fit shadow-2xl">
+    //   <div>
+    //     <div className="flex items-end gap-5 justify-between" id="sheet-title">
+    //       <input
+    //         className="text-6xl font-bebas ]"
+    //         placeholder="Recipe Name"
+    //       ></input>
+    //     </div>
+
+    //     <div className="flex-grow border-t-2 border-black"></div>
+    //   </div>
     <div className="flex flex-col gap-5 bg-white p-6 m-10 w-full max-w-6xl h-fit shadow-2xl">
       <div>
-        <div
-          className="flex items-end gap-5 justify-between"
-          id="sheet-title"
-        ></div>
-
-        <div className="flex-grow border-t-2 border-black"></div>
+        <div className="flex items-end gap-5 justify-between" id="sheet-title">
+          <input
+            className="text-6xl font-bebas ]"
+            placeholder="Recipe Name"
+          ></input>
+          <input className="text-3xl font-bebas" placeholder="ABV"></input>
+        </div>
+        <input className="text-3xl font-bebas" placeholder="Style"></input>
+        <div className="flex-grow border-t-2 border-black">
+          <input className="p-2" placeholder="description"></input>
+        </div>
       </div>
+
       <h2 className="font-bebas text-3xl">Ingredients</h2>
       <div className="flex flex-col gap-2" id="ingredients">
         <div className="flex gap-2">
@@ -28,13 +47,57 @@ function CreateSheet() {
             <h3 className="bg-black  text-white font-rubic font-bold text-xl p-3">
               Malts
             </h3>
-            <ComboBox items={maltList.map((malt) => malt.name)} />
+            <div className="p-2">
+              <ol className="flex flex-col">
+                {selectedMalts.map((malt) => {
+                  return (
+                    <li className="flex justify-between">
+                      <p>{malt.name}</p>
+                      <div className="flex items-center">
+                        <input className="w-10 border-2 rounded"></input>
+                        <p>Kg</p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
+              <ComboBox
+                items={maltList}
+                type="Malts"
+                setSelectedItems={setSelectedMalts}
+              />
+            </div>
           </div>
           <div className="flex-grow border-2 border-black rounded  ">
             <h3 className="bg-black text-white font-rubic font-bold text-xl p-3 ">
               Hops
             </h3>
-            <ComboBox items={hopList.map((hop) => hop.name)} />
+            <div className="p-2">
+              <ol className="flex flex-col">
+                {selectedHops.map((hop) => {
+                  return (
+                    <li className="flex flex-col">
+                      <div className="flex justify-between flex-wrap">
+                        <p className="w-[30%]">{hop.name}</p>
+                        <div className="flex items-center ">
+                          <input className="w-10 border-2 rounded"></input>
+                          <p>g</p>
+                        </div>
+                        <div className="flex items-center">
+                          <input className="w-10 border-2 rounded"></input>
+                          <p>mins</p>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
+              <ComboBox
+                items={hopList}
+                type="Hops"
+                setSelectedItems={setSelectedHops}
+              />
+            </div>
           </div>
         </div>
         <div className="flex gap-2 border-2 border-black rounded">
