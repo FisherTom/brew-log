@@ -7,8 +7,13 @@ Web App for homebrewers to record, share and view beer recipies and brew logs.
 [ ] form validation
 [ ] list id errors
 [ ] form labels
-[ ] data formatting
-[ ] DB post
+[x] data formatting
+[x] DB post
+[ ] aditional form optional field for water chemistry - adjuncts
+[ ] auto calc ABV from gravity
+[ ] remove ingredients
+[ ] remove recipes
+[ ] edit recipes
 
 ## Cloning this repo
 

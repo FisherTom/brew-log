@@ -84,20 +84,23 @@ function CreateSheet() {
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="text-6xl font-bebas ]"
+            className="text-6xl font-bebas focus:outline-none"
             placeholder="Recipe Name"
           ></input>
-          <input
-            value={abv}
-            onChange={(e) => setAbv(e.target.value)}
-            className="text-3xl font-bebas"
-            placeholder="ABV"
-          ></input>
+          <div className="flex">
+            <input
+              value={abv}
+              onChange={(e) => setAbv(e.target.value)}
+              className="w-10 text-3xl font-bebas focus:outline-none"
+              placeholder="ABV"
+            ></input>
+            <p className="text-3xl font-bebas">%ABV</p>
+          </div>
         </div>
         <input
           value={style}
           onChange={(e) => setStyle(e.target.value)}
-          className="text-3xl font-bebas"
+          className="text-3xl font-bebas focus:outline-none"
           placeholder="Style"
         ></input>
         <div className="flex flex-grow border-t-2 border-black">

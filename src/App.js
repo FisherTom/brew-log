@@ -3,8 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import BrewSheet from "./components/BrewSheet";
 import Sidebar from "./components/Sidebar";
 import CreateSheet from "./components/CreateSheet";
+import HomeSheet from "./components/HomeSheet";
 function App() {
-  const [selectedBeer, setSelectedBeer] = useState();
+  const [selectedBeer, setSelectedBeer] = useState({});
 
   return (
     <div className="flex bg-gray-400">
@@ -13,8 +14,9 @@ function App() {
       </div>
       <div className="flex justify-center flex-grow h-screen overflow-y-auto">
         <Routes>
+          <Route path={`/`} element={<HomeSheet />} />
           <Route
-            path="/"
+            path={`/recipes/:${selectedBeer._id}`}
             element={selectedBeer && <BrewSheet beer={selectedBeer} />}
           />
           <Route path="create" element={<CreateSheet />} />
