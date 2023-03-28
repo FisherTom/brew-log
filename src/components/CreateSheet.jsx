@@ -44,6 +44,8 @@ function CreateSheet() {
       og,
       fg,
       notes,
+      batchSize,
+      boilVolume,
     });
   }
 

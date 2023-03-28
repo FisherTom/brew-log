@@ -7,11 +7,11 @@ function App() {
   const [selectedBeer, setSelectedBeer] = useState();
 
   return (
-    <div className="flex bg-gray-200">
+    <div className="flex bg-gray-400">
       <div className="h-screen w-60 shrink-0">
         <Sidebar setSelectedBeer={setSelectedBeer} />
       </div>
-      <div className="flex-grow h-screen overflow-y-auto flex justify-center">
+      <div className="flex justify-center flex-grow h-screen overflow-y-auto">
         <Routes>
           <Route
             path="/"

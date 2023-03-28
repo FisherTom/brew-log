@@ -35,19 +35,63 @@ export const postBeer = ({
   og,
   fg,
   notes,
+  batchSize,
+  boilVolume,
 }) => {
-  console.log(
+  const formatedHops = [...selectedHops].map((hop) => {
+    return {
+      name: hop.name,
+      amount: { value: Number(hop.weight), unit: "grams" },
+      add: hop.time,
+    };
+  });
+  const formatedMalts = [...selectedMalts].map((malt) => {
+    return {
+      name: malt.name,
+      amount: { value: Number(malt.weight), unit: "Kg" },
+    };
+  });
+  const formatedMash = [...mash].map((step) => {
+    return {
+      temp: { value: Number(step.mashTemp), unit: "Celsius" },
+      duration: Number(step.mashTime),
+    };
+  });
+
+  const newRecipe = {
     name,
-    abv,
     style,
+    abv: Number(abv),
+    target_og: Number(og),
+    target_fg: Number(fg),
+
     description,
-    selectedMalts,
-    selectedHops,
-    yeast,
-    mash,
-    fermTemp,
-    og,
-    fg,
-    notes
-  );
+    notes,
+    boil_volume: {
+      value: Number(boilVolume),
+      unit: "liters",
+    },
+    volume: {
+      value: Number(batchSize),
+      unit: "liters",
+    },
+    ingredients: {
+      malt: formatedMalts,
+      hops: formatedHops,
+      yeast,
+    },
+    method: {
+      mash_temp: formatedMash,
+      fermentation: { temp: { value: fermTemp, unit: "Celsius" } },
+    },
+  };
+
+  return api
+    .post("/recipes", newRecipe)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
