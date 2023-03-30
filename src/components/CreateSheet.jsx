@@ -78,16 +78,19 @@ function CreateSheet() {
   }
 
   return (
-    <form className="flex flex-col w-full max-w-6xl gap-5 p-6 m-10 bg-white shadow-2xl h-fit">
+    <form className="flex flex-col w-full max-w-6xl gap-5 p-6 m-4 bg-white shadow-2xl h-fit">
       <div>
-        <div className="flex items-end justify-between gap-5" id="sheet-title">
+        <div
+          className="flex flex-col justify-between w-full gap-2 md:flex-row"
+          id="sheet-title"
+        >
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="text-6xl font-bebas focus:outline-none"
+            className="w-full text-6xl font-bebas focus:outline-none"
             placeholder="Recipe Name"
           ></input>
-          <div className="flex">
+          <div className="flex items-center">
             <input
               value={abv}
               onChange={(e) => setAbv(e.target.value)}
@@ -107,11 +110,11 @@ function CreateSheet() {
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full h-full min-w-0 p-2 overflow-y-auto border-none outline-none resize-none"
+            className="w-full min-w-0 p-2 overflow-y-auto border-none outline-none resize-none h-fit"
             placeholder="Add Description"
           ></textarea>
           <button
-            className="w-40 m-2 bg-green-500 rounded-lg"
+            className="w-40 m-2 text-white bg-green-500 rounded-lg font-bebas"
             onClick={(e) => {
               handleSubmit(e);
             }}
@@ -123,7 +126,7 @@ function CreateSheet() {
 
       <h2 className="text-3xl font-bebas">Ingredients</h2>
       <div className="flex flex-col gap-2" id="ingredients">
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 md:flex-row">
           <div className="flex-grow border-2 border-black rounded">
             <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Malts
@@ -211,14 +214,14 @@ function CreateSheet() {
           <input
             value={yeast}
             onChange={(e) => setYeast(e.target.value)}
-            className="m-2 border-b-2 border-black focus:outline-none"
+            className="w-40 m-2 border-b-2 border-black focus:outline-none"
             placeholder="Add Yeast"
           ></input>
         </div>
       </div>
       <h2 className="text-3xl font-bebas">Process</h2>
       <div className="flex flex-col gap-2" id="process">
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 md:flex-row">
           <div className="flex-grow border-2 border-black rounded">
             <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Mash
@@ -287,7 +290,7 @@ function CreateSheet() {
           </div>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 md:flex-row">
           <div className="flex-grow border-2 border-black rounded">
             <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Fermentation temp

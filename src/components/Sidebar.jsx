@@ -13,10 +13,10 @@ function Sidebar({ setSelectedBeer }) {
     });
   }, []);
   return (
-    <div className="flex flex-col justify-between min-h-screen gap-20 bg-white p-7">
+    <div className="flex flex-col justify-between min-h-screen gap-20 p-4 bg-white">
       <div>
         <Link to={"/"}>
-          <h2 className="px-5 py-2 text-2xl text-center text-white bg-gray-400 rounded-lg shadow-xl font-bebas">
+          <h2 className="px-5 py-2 mt-16 text-2xl text-center text-white bg-gray-400 rounded-lg shadow-xl md:mt-0 font-bebas">
             Home
           </h2>
         </Link>

@@ -3,7 +3,7 @@ import React from "react";
 function HomeSheet() {
   return (
     <div>
-      <div className="flex flex-col w-[90%] max-w-6xl gap-5 p-6 m-10 bg-white shadow-2xl h-fit">
+      <div className="flex flex-col w-[90%] max-w-6xl gap-5 p-6 m-4 bg-white shadow-2xl h-fit">
         <div>
           <div className="flex items-end justify-between " id="sheet-title">
             <h1 className="flex flex-wrap text-6xl font-bebas drop-shadow-[2px_2px_3px_rgba(160,160,160)]">
