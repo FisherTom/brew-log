@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div className="flex bg-gray-400">
-      <div className="h-screen w-60 shrink-0">
+      <div className="z-10 w-0 h-screen overflow-hidden md:w-60 shrink-0">
         <Sidebar setSelectedBeer={setSelectedBeer} />
       </div>
       <div className="flex justify-center flex-grow h-screen overflow-y-auto">

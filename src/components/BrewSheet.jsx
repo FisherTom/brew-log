@@ -4,9 +4,9 @@ import IngredientChart from "./IngredientChart";
 
 function BrewSheet({ beer }) {
   return (
-    <div className="flex flex-col gap-5 bg-white p-6 m-10 w-full max-w-6xl h-fit shadow-2xl">
+    <div className="flex flex-col w-full max-w-6xl gap-5 p-6 m-10 bg-white shadow-2xl h-fit">
       <div>
-        <div className="flex items-end gap-5 justify-between" id="sheet-title">
+        <div className="flex items-end justify-between gap-5" id="sheet-title">
           <h1 className="text-6xl font-bebas drop-shadow-[2px_2px_3px_rgba(160,160,160)]">
             {beer.name}
           </h1>
@@ -17,15 +17,15 @@ function BrewSheet({ beer }) {
           <p className="p-2">{beer.description}</p>
         </div>
       </div>
-      <h2 className="font-bebas text-3xl">Ingredients</h2>
+      <h2 className="text-3xl font-bebas">Ingredients</h2>
       <div className="flex flex-col gap-2" id="ingredients">
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 md:flex-row ">
           <div className="flex-grow border-2 border-black rounded">
-            <h3 className="bg-black  text-white font-rubic font-bold text-xl p-3">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Malts
             </h3>
-            <div className="flex items-center flex-wrap justify-center">
-              <div className="  m-10">
+            <div className="flex flex-wrap items-center justify-center">
+              <div className="m-10 ">
                 <IngredientChart
                   ingredients={beer.ingredients.malt}
                   colors={maltColors}
@@ -33,12 +33,12 @@ function BrewSheet({ beer }) {
               </div>
             </div>
           </div>
-          <div className="flex-grow border-2 border-black rounded  ">
-            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3 ">
+          <div className="flex-grow border-2 border-black rounded ">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic ">
               Hops
             </h3>
-            <div className="flex items-center flex-wrap justify-center">
-              <div className=" m-10">
+            <div className="flex flex-wrap items-center justify-center">
+              <div className="m-10 ">
                 <IngredientChart
                   ingredients={beer.ingredients.hops}
                   colors={hopColors}
@@ -48,17 +48,17 @@ function BrewSheet({ beer }) {
           </div>
         </div>
         <div className="flex gap-2 border-2 border-black rounded">
-          <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+          <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
             Yeast
           </h3>
           <p className="p-3">{beer.ingredients.yeast}</p>
         </div>
       </div>
-      <h2 className="font-bebas text-3xl">Process</h2>
+      <h2 className="text-3xl font-bebas">Process</h2>
       <div className="flex flex-col gap-2" id="process">
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 md:flex-row">
           <div className="flex-grow border-2 border-black rounded">
-            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Mash
             </h3>
             <ol className="p-3">
@@ -70,7 +70,7 @@ function BrewSheet({ beer }) {
             </ol>
           </div>
           <div className="flex-grow border-2 border-black rounded">
-            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               boil
             </h3>
             <h4 className="p-3">
@@ -87,23 +87,23 @@ function BrewSheet({ beer }) {
           </div>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 md:flex-row">
           <div className="flex-grow border-2 border-black rounded">
-            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Fermentation temp
             </h3>
             <h4 className="p-3">{`${beer.method.fermentation.temp.value} ${beer.method.fermentation.temp.unit}`}</h4>
           </div>
 
           <div className="flex-grow border-2 border-black rounded">
-            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Original Gravity
             </h3>
             <h4 className="p-3">{`${beer.target_og}`}</h4>
           </div>
 
           <div className="flex-grow border-2 border-black rounded">
-            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Final Gravity
             </h3>
             <h4 className="p-3">{`${beer.target_fg} `}</h4>
@@ -112,14 +112,14 @@ function BrewSheet({ beer }) {
 
         {beer.notes && (
           <div className="flex gap-2 border-2 border-black rounded">
-            <h3 className="bg-black text-white font-rubic font-bold text-xl p-3">
+            <h3 className="p-3 text-xl font-bold text-white bg-black font-rubic">
               Notes
             </h3>
             <p className="p-3">{beer.notes}</p>
           </div>
         )}
 
-        <div className="h-2 flex justify-between text-sm py-2 border-black border-t-2">
+        <div className="flex justify-between h-2 py-2 text-sm border-t-2 border-black">
           <p>{`Submitted by ${beer.created_by}`}</p>
           <p>{`${beer.date.slice(0, 10)}`}</p>
         </div>
