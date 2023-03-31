@@ -5,8 +5,6 @@ import Sidebar from "./components/Sidebar";
 import CreateSheet from "./components/CreateSheet";
 import HomeSheet from "./components/HomeSheet";
 function App() {
-  const [selectedBeer, setSelectedBeer] = useState({});
-
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
   const toggleSidebar = () => {
@@ -16,16 +14,16 @@ function App() {
   return (
     <div className="flex bg-gray-400">
       <div
-        className={`z-10 w-0 h-screen overflow-hidden md:w-60  shrink-0 ${
+        className={`z-10  w-0 h-screen overflow-hidden md:w-60  shrink-0 ${
           isSidebarVisible ? "w-60" : ""
         }  left-0 bg-gray-400`}
       ></div>
       <div
         className={`z-10 fixed w-0 h-screen overflow-hidden md:w-60  shrink-0 ${
           isSidebarVisible ? "w-60" : ""
-        }  left-0`}
+        }  left-0 bg-gray-400`}
       >
-        <Sidebar setSelectedBeer={setSelectedBeer} />
+        <Sidebar />
       </div>
       <div className="flex justify-center flex-grow h-screen overflow-y-auto">
         <button
@@ -38,10 +36,9 @@ function App() {
       <div className={`mt-16 md:mt-0 flex justify-center w-full `}>
         <Routes>
           <Route path={`/`} element={<HomeSheet />} />
-          <Route
-            path={`/recipes/:${selectedBeer._id}`}
-            element={selectedBeer && <BrewSheet beer={selectedBeer} />}
-          />
+          <Route path="recipes">
+            <Route path={`:recipeId`} element={<BrewSheet />} />
+          </Route>
           <Route path="create" element={<CreateSheet />} />
         </Routes>
       </div>

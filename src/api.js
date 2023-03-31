@@ -10,6 +10,12 @@ export const getAllBeers = () => {
   });
 };
 
+export const getBeer = (id) => {
+  return api.get(`/recipes/${id}`).then((res) => {
+    return res.data.recipe;
+  });
+};
+
 export const getAllHops = () => {
   return api.get(`/hops`).then((res) => {
     return res.data.hops;

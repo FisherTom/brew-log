@@ -3,7 +3,7 @@ import React from "react";
 import { getAllBeers } from "../api";
 import { Link, useLocation } from "react-router-dom";
 
-function Sidebar({ setSelectedBeer }) {
+function Sidebar() {
   const [beerList, setBeerList] = useState([]);
   const location = useLocation();
 
@@ -12,6 +12,7 @@ function Sidebar({ setSelectedBeer }) {
       setBeerList(beers);
     });
   }, []);
+
   return (
     <div className="flex flex-col justify-between min-h-screen gap-20 p-4 bg-white">
       <div>
@@ -25,14 +26,10 @@ function Sidebar({ setSelectedBeer }) {
         {beerList.length === 0 ? (
           <p className="text-center text-gray-500">Loading beer list</p>
         ) : (
-          beerList.map((beer) => {
+          beerList.map((beer, index) => {
             return (
-              <Link to={`/recipes/${beer._id}`}>
-                <li
-                  className="p-2 m-1 text-sm rounded cursor-pointer font-rubic hover:bg-black hover:text-white"
-                  key={beer._id}
-                  onClick={() => setSelectedBeer(beer)}
-                >
+              <Link key={beer._id} to={`/recipes/${beer._id}`}>
+                <li className="p-2 m-1 text-sm rounded cursor-pointer font-rubic hover:bg-black hover:text-white">
                   {beer.name}
                 </li>
               </Link>

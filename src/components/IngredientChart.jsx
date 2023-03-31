@@ -19,6 +19,7 @@ function IngredientChart({ ingredients, colors }) {
       } else {
         accumulator.push({
           name: ingredient.name,
+          _id: ingredient._id,
           amount: {
             value: ingredient.amount.value,
             unit: ingredient.amount.unit,
@@ -28,6 +29,7 @@ function IngredientChart({ ingredients, colors }) {
       return accumulator;
     }, []);
     setSummedIngredients(summedArray);
+
     setIngredientNames(
       summedArray.map((ingredient) => {
         return ingredient.name;
@@ -81,7 +83,7 @@ function IngredientChart({ ingredients, colors }) {
       <ul className="m-3 ">
         {summedIngredients.map((ingredient, i) => {
           return (
-            <li className="flex align-middle m-2 gap-2">
+            <li key={ingredient._id} className="flex gap-2 m-2 align-middle">
               <div
                 className={`w-6 h-6 rounded-[50%] shrink-0`}
                 style={{ backgroundColor: `${colors[i]}` }}
